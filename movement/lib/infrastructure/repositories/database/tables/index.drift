@@ -1,0 +1,35 @@
+import 'sensor_geolocation_table.dart';
+import 'manual_geolocation_table.dart';
+import 'classified_period_table.dart';
+import 'google_maps_table.dart';
+import 'log_table.dart';
+import 'manual_geolocation_table.dart';
+import 'movement_table.dart';
+import 'stop_table.dart';
+import 'tracked_day_table.dart';
+
+CREATE INDEX sensor_geolocation_created_on_index ON sensor_geolocations(created_on);
+CREATE INDEX sensor_geolocation_deleted_on_index ON sensor_geolocations(deleted_on);
+CREATE INDEX sensor_geolocation_is_noise_index ON sensor_geolocations(is_noise);
+CREATE INDEX sensor_geolocation_sensor_type_index ON sensor_geolocations(sensor_type);
+CREATE INDEX sensor_geolocation_accuracy_index ON sensor_geolocations(accuracy);
+
+CREATE INDEX manual_geolocation_created_on_index ON manual_geolocations(created_on);
+CREATE INDEX manual_geolocation_deleted_on_index ON manual_geolocations(deleted_on);
+CREATE INDEX manual_geolocation_classified_period_uuid_index ON manual_geolocations(classified_period_uuid);
+
+CREATE INDEX classified_periods_start_date_index ON classified_periods(start_date);
+CREATE INDEX classified_periods_end_date_index ON classified_periods(end_date);
+CREATE INDEX classified_periods_deleted_on_index ON classified_periods(deleted_on);
+
+CREATE INDEX sensor_geolocations_synced_index ON sensor_geolocations(synced);
+CREATE INDEX classified_periods_synced_index ON classified_periods(synced);
+CREATE INDEX logs_synced_index ON logs(synced);
+CREATE INDEX stops_synced_index ON stops(synced);
+CREATE INDEX movements_synced_index ON movements(synced);
+CREATE INDEX google_maps_datas_synced_index ON google_maps_datas(synced);
+CREATE INDEX manual_geolocations_synced_index ON manual_geolocations(synced);
+CREATE INDEX tracked_days_synced_index ON tracked_days(synced);
+
+CREATE INDEX movements_classified_period_uuid_index ON movements(classified_period_uuid);
+CREATE INDEX stops_classified_period_uuid_index ON stops(classified_period_uuid);
