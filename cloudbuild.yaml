@@ -7,7 +7,7 @@ steps:
     args:
       - '-c'
       - |
-        cd C:/CBS/Odin/core_backend/ClientApp
+        cd core_backend/ClientApp
         npm install
         npm run build
 
