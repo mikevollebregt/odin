@@ -1,7 +1,7 @@
 ﻿# cloudbuild.yaml
 
 steps:
-  # Step 1: Use the official Node.js image to install Node.js and npm
+   # Step 1: Use the official Node.js image to install Node.js and npm
   - name: 'node:14'
     entrypoint: 'bash'
     args:
@@ -13,13 +13,8 @@ steps:
         node -v
         /usr/bin/npm -v
 
-  # Step 2: Install 'semver' module
-  - name: 'node:14'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        /usr/bin/npm install -g semver
+        # Print the contents of the npm directory for further debugging
+        ls -la /usr/lib/node_modules/
 
   # Step 3: Use the official .NET SDK image
   - name: 'mcr.microsoft.com/dotnet/sdk:6.0'
