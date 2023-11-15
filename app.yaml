@@ -15,7 +15,6 @@ resources:
   memory_gb: 0.5
   disk_size_gb: 10
 
-api_version: 1
 threadsafe: true
 handlers:
 - url: /
