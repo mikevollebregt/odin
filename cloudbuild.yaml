@@ -1,14 +1,14 @@
 ﻿# cloudbuild.yaml
 
 steps:
-  # Install Node.js and npm
+  # Step 1: Use the official Node.js image to install Node.js and npm
   - name: 'node:14'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
         apt-get update && apt-get install -y nodejs npm
-      
+
   # Step 2: Use the official .NET SDK image
   - name: 'mcr.microsoft.com/dotnet/sdk:6.0'
     entrypoint: 'bash'
