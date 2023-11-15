@@ -1,35 +1,7 @@
 ﻿# cloudbuild.yaml
 
 steps:
-  # Step 1: Use the official Node.js image to install Node.js and npm
-  - name: 'node:14'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        apt-get update && apt-get install -y nodejs npm
-
-        # Print the Node.js and npm versions for debugging
-        node -v
-        npm -v
-
-  # Step 2: Install 'semver' module
-  - name: 'node:14'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        npm install -g semver
-
-  # Step 3: Set NODE_PATH environment variable
-  - name: 'node:14'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        export NODE_PATH=$(npm root -g)
-
-  # Step 4: Use the official .NET SDK image
+  # Step 1: Use the official .NET SDK image
   - name: 'mcr.microsoft.com/dotnet/sdk:6.0'
     entrypoint: 'bash'
     args:
@@ -39,17 +11,7 @@ steps:
         dotnet build --configuration Release
         dotnet publish -c Release -o /workspace/app
 
-  # Step 3: Use the official .NET SDK image
-  - name: 'mcr.microsoft.com/dotnet/sdk:6.0'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        dotnet restore
-        dotnet build --configuration Release
-        dotnet publish -c Release -o /workspace/app
-
-  # Step 3: Build the Docker image
+  # Step 2: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
@@ -57,13 +19,13 @@ steps:
       - 'gcr.io/$PROJECT_ID/core_backend:$COMMIT_SHA'
       - '.'
 
-  # Step 4: Push the Docker image to Google Container Registry
+  # Step 3: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
       - 'gcr.io/$PROJECT_ID/core_backend:$COMMIT_SHA'
 
-  # Step 5: Deploy the application (example: deploy to Cloud Run)
+  # Step 4: Deploy the application (example: deploy to Cloud Run)
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
