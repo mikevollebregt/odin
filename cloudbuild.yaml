@@ -7,7 +7,7 @@ steps:
     args:
       - '-c'
       - |
-        cd \core_backend\ClientApp
+        cd ClientApp
         npm install
         npm run build
 
