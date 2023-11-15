@@ -1,15 +1,13 @@
 ﻿# cloudbuild.yaml
 
 steps:
-  # Step 1: Build Angular app
+ # Install Node.js
   - name: 'node:14'
     entrypoint: 'bash'
     args:
       - '-c'
-      - |
-        cd core_backend/ClientApp
-        npm install
-        npm run build
+      - 'apt-get update && apt-get install -y nodejs'
+  
 
   # Step 2: Use the official .NET SDK image
   - name: 'mcr.microsoft.com/dotnet/sdk:6.0'
