@@ -30,11 +30,11 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'core_backend'
+      - 'core-backend'
       - '--image'
       - 'gcr.io/$PROJECT_ID/core_backend:$COMMIT_SHA'
       - '--region'
-      - 'us-central1'
+      - 'global'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
