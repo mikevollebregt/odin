@@ -7,3 +7,5 @@
   args: ['app','deploy','clearbooks-rest-aspnetcore/bin/Release/netcoreapp2.1/publish/app.yaml']
 
 
+options:
+  logging: CLOUD_LOGGING_ONLY
