@@ -30,7 +30,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'core-backend'
+      - 'odin'
       - '--image'
       - 'gcr.io/$PROJECT_ID/core_backend:$COMMIT_SHA'
       - '--region'
