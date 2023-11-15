@@ -10,3 +10,5 @@ movement/build/
 movement/android/app/release/
 movement/android/app/debug/
 movement/android/.gradle/
+core_backend/ClientApp/.angular/cache/13.3.4/babel-webpack/b6732de09a778af150ec5157a5dbe390.json
+core_backend/ClientApp/.angular/cache/
