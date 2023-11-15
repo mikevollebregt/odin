@@ -34,7 +34,7 @@ steps:
       - '--image'
       - 'gcr.io/$PROJECT_ID/core_backend:$COMMIT_SHA'
       - '--region'
-      - 'global'
+      - 'europe-west4'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
