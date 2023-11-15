@@ -13,7 +13,15 @@ steps:
         node -v
         /usr/bin/npm -v
 
-  # Step 2: Use the official .NET SDK image
+  # Step 2: Install 'semver' module
+  - name: 'node:14'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        /usr/bin/npm install -g semver
+
+  # Step 3: Use the official .NET SDK image
   - name: 'mcr.microsoft.com/dotnet/sdk:6.0'
     entrypoint: 'bash'
     args:
