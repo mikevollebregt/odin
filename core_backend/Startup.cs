@@ -37,9 +37,9 @@ namespace core_backend
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddDbContext<KataskoposDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("KataskoposConnection")), ServiceLifetime.Transient);
+            //services.AddDbContext<KataskoposDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("KataskoposConnection")), ServiceLifetime.Transient);
 
 
             services.AddIdentityServer()
