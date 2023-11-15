@@ -7,11 +7,11 @@
 
 # Build the app image.
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/Odin:6.1', '.' ]
-  dir: './bin/Release/netcoreapp2.1/publish'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/Odin:6.0', '.' ]
+  dir: './bin/Release/net6.0/publish'
 
 # Publish the app.
-images: [ 'gcr.io/$PROJECT_ID/Odin:6.1' ]
+images: [ 'gcr.io/$PROJECT_ID/Odin:6.0' ]
 
 options:
   logging: CLOUD_LOGGING_ONLY
