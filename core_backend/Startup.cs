@@ -29,7 +29,7 @@ namespace core_backend
         public void ConfigureServices(IServiceCollection services)
         {
             // Add services to the container.
-            var connectionString = Configuration.GetConnectionString("RemoteCloudConnection");
+            var connectionString = Configuration.GetConnectionString("CloudConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
