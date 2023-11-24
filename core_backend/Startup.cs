@@ -74,7 +74,7 @@ namespace core_backend
         {
             dbContext.Database.Migrate();
 
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseSwaggerUI(c =>
             {
