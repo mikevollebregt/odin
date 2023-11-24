@@ -48,29 +48,8 @@ namespace core_backend.Middlewares
 
             var bodyText = await bodyStream.ReadToEndAsync();
 
-            var user = await userService.GetLoggedInUser();
 
-            if(user != null)
-            {
-                var errorLog = await errorLogService.SaveErrorLog(new ErrorLog
-                {
-                    DateTime = DateTime.Now,
-                    InnerException = exception.InnerException != null ? exception.InnerException.ToString() : "",
-                    Message = exception.Message,
-                    StackTrace = exception.StackTrace,
-                    StatusCode = 500,
-                    UserId = user?.Id,
-                    Body = bodyText,
-                    TypeException = exception.GetType().Name,
-                });
-            }
-
-            return context.Response.WriteAsync(new ErrorDetailsDTO()
-            {
-                StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error from the custom middleware.",
-                TypeException = exception.GetType(),
-            }.ToString());
+            return context.Response.WriteAsync(exception.ToString());
 
         }
 

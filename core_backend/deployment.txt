@@ -1,0 +1,19 @@
+﻿sudo systemctl start kestrel-odin_production
+sudo systemctl stop kestrel-odin_production.service
+sudo cp -r core_backend/bin/Debug/net6.0/publish/* /var/www/odin_production
+dotnet publish -c Debug
+gcloud compute firewall-rules create allow-http-dev --allow=tcp:5001
+
+cat <<EOF > kestrel-odin_production.service
+Description=Odin production
+
+[Service]
+WorkingDirectory=/var/www/odin_production
+ExecStart=/usr/bin/dotnet /var/www/odin_production/core_backend.dll
+Restart=always
+Environment=ASPNETCORE_ENVIRONMENT=Development
+Environment=ASPNETCORE_URLS=http://0.0.0.0:5000, http://0.0.0.0:5001
+
+[Install]
+WantedBy=multi-user.target
+EOF
