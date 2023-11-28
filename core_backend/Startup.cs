@@ -43,6 +43,7 @@ namespace core_backend
 
 
             services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
