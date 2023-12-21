@@ -27,7 +27,7 @@ namespace core_backend.Controllers
         [HttpGet]
         public async Task<IActionResult> ImportGeolocations()
         {
-            var geolocations = _excelService.Import("C:/CBS/movement/core_backend/core_backend/DataSources/sensorgeolocations.csv");
+            var geolocations = _excelService.Import("/home/staalar/sensorgeolocations.csv");
             await _database.AddRangeAsync(geolocations);
             await _database.SaveChangesAsync();
 
