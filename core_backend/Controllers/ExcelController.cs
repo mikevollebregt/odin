@@ -16,12 +16,10 @@ namespace core_backend.Controllers
     {
         private readonly ExcelService _excelService;
         private readonly PostgressDatabase _database;
-        private readonly ApplicationDbContext _sqlDatabase;
-        public ExcelController(ExcelService excelService, PostgressDatabase database, ApplicationDbContext sqlDatabase)
+        public ExcelController(ExcelService excelService, PostgressDatabase database)
         {
             _excelService = excelService;
             _database = database;
-            _sqlDatabase = sqlDatabase;
         }
 
         [HttpGet]
