@@ -35,7 +35,7 @@ namespace core_backend.Controllers
         [HttpGet]
         public async Task<ActionResult> ExportGeolocations()
         {
-            var sesonsGeolocations = await _sqlDatabase.SensorGeolocations.ToListAsync();
+            var sesonsGeolocations = await _database.SensorGeolocations.ToListAsync();
 
             var cc = new CsvConfiguration(new System.Globalization.CultureInfo("en-US"));
 
