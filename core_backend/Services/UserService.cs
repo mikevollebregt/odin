@@ -1,4 +1,5 @@
 ﻿using core_backend.Data;
+using core_backend.Database;
 using core_backend.Exceptions;
 using core_backend.Models;
 using core_backend.Repositories;
@@ -10,12 +11,12 @@ namespace core_backend.Services
 {
     public class UserService
     {
-        private readonly ApplicationDbContext _database;
+        private readonly PostgressDatabase _database;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IRepository<ApplicationUser> _userRepository;
         private readonly ClaimsPrincipal caller;
 
-        public UserService(ApplicationDbContext database, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, IRepository<ApplicationUser> userRepository)
+        public UserService(PostgressDatabase database, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, IRepository<ApplicationUser> userRepository)
         {
             caller = httpContextAccessor.HttpContext?.User;
             _userManager = userManager;

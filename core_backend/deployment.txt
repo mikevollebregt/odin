@@ -1,24 +1,30 @@
 ﻿sudo systemctl start kestrel-odin_production
 sudo systemctl stop kestrel-odin_production.service
 
-sudo cp -r /odin/core_backend/bin/Debug/net6.0/publish/* /var/www/odin_production
+sudo systemctl start kestrel-odin_development
+sudo systemctl stop kestrel-odin_development.service
+
+sudo cp -r core_backend/bin/Debug/net6.0/publish/* /var/www/odin_development
 dotnet publish -c Debug
 gcloud compute firewall-rules create allow-http-dev --allow=tcp:5001
 gcloud compute firewall-rules create allow-https-dev --allow=tcp:443
 
-cat <<EOF > kestrel-odin_production.service
+sudo nano /etc/systemd/system/kestrel-odin_development.service
+
+
+ kestrel-odin_development.service
 [Unit]
-Description=Odin production
+Description=Odin development
 
 [Service]
-WorkingDirectory=/var/www/odin_production
-ExecStart=/usr/bin/dotnet /var/www/odin_production/core_backend.dll
+WorkingDirectory=/var/www/odin_development
+ExecStart=/usr/bin/dotnet /var/www/odin_development/core_backend.dll
 Restart=always
 Environment=ASPNETCORE_ENVIRONMENT=Development
-Environment=ASPNETCORE_URLS=https://0.0.0.0:5000
+Environment=ASPNETCORE_URLS=http://0.0.0.0:5000
 
 [Install]
 WantedBy=multi-user.target
-EOF
+
 
 gcloud compute instances get-serial-port-output odin-production

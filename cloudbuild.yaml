@@ -21,7 +21,7 @@ steps:
 
   # Step 3: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args:
+    args
       - 'push'
       - 'gcr.io/$PROJECT_ID/core_backend:$COMMIT_SHA'
 

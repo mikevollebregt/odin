@@ -9,11 +9,14 @@ namespace core_backend.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
             this.Database.SetCommandTimeout(0);
         }
+
+        //CSV stuff
+        public DbSet<CSVSensorGeolocation> CSVSensorGeolocations { get; set; }
         
         //Logs
         public DbSet<ErrorLog> ErrorLogs { get; set; }

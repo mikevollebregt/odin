@@ -5,15 +5,10 @@ using core_backend.Models;
 using core_backend.Repositories;
 using core_backend.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using System;
 
 namespace core_backend
 {
@@ -29,13 +24,21 @@ namespace core_backend
         public void ConfigureServices(IServiceCollection services)
         {
             // Add services to the container.
-            var connectionString = Configuration.GetConnectionString("CloudConnection");
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            var connectionPostgressString = Configuration.GetConnectionString("PostgressConnection");
+            //var connectionSQLString = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(connectionString));
+
+            services.AddDbContext<PostgressDatabase>(options =>
+                options.UseNpgsql(connectionPostgressString));
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(connectionSQLString));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<PostgressDatabase>();
 
             //services.AddDbContext<KataskoposDbContext>(options =>
             //    options.UseSqlServer(
@@ -43,8 +46,7 @@ namespace core_backend
 
 
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, PostgressDatabase>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
@@ -67,11 +69,12 @@ namespace core_backend
             services.AddScoped<GoogleMapsService>();
             services.AddScoped<PDOKService>();
             services.AddScoped<TransformerService>();
+            services.AddScoped<ExcelService>();
         }
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, ApplicationDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, PostgressDatabase dbContext)
         {
             dbContext.Database.Migrate();
 
@@ -84,9 +87,11 @@ namespace core_backend
             app.UseSwagger();
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -94,10 +99,9 @@ namespace core_backend
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-                //endpoints.MapRazorPages();
+                endpoints.MapRazorPages();
             });
-        }
 
+        }
     }
 }
-
