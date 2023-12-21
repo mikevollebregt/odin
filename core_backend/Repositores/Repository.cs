@@ -1,4 +1,5 @@
 ﻿using core_backend.Data;
+using core_backend.Database;
 using core_backend.Exceptions;
 using core_backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,9 @@ namespace core_backend.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly ApplicationDbContext _database;
+        protected readonly PostgressDatabase _database;
 
-        public Repository(ApplicationDbContext database)
+        public Repository(PostgressDatabase database)
         {
             _database = database;
         }
