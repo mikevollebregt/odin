@@ -26,8 +26,11 @@ namespace core_backend.Controllers
         public async Task<IActionResult> ImportGeolocations()
         {
             var geolocations = _excelService.Import("/home/staalar/sensorgeolocations.csv");
-            await _database.AddRangeAsync(geolocations);
-            await _database.SaveChangesAsync();
+            foreach(var geolocation in geolocations)
+            {
+                await _database.AddAsync(geolocation);
+                await _database.SaveChangesAsync();
+            }
 
             return Ok("Geolocations imported and saved to the database");
         }
